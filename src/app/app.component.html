@@ -1,0 +1,34 @@
+<div class="chatbot-content">
+  <div class="chatbot-header">
+    <span class="chatbot-title">Chat</span>
+  </div>
+
+  <div class="chatbot-body">
+    <div *ngFor="let message of messages" class="message-content {{message.sender}}">
+      <div class="message">
+        <span class="text">
+          {{message.message}}
+        </span>
+      </div>
+    </div>
+
+    <div *ngIf="loading" class="message-content chatbot">
+      <div class="message">
+        <span class="text">
+          <div class="loading-dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+          </div>
+        </span>
+      </div>
+    </div>
+
+    <div id="chatEnd"></div>
+  </div>
+
+  <form class="chatbot-footer" [formGroup]="chatForm" (ngSubmit)="handleMessageSent()">
+    <input type="text" class="chatbot-input" formControlName="userInput" placeholder="Digite sua mensagem..." />
+    <button type="submit" [disabled]="loading" class="chatbot-send">Enviar</button>
+  </form>
+</div>
