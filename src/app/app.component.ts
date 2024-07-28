@@ -44,9 +44,15 @@ export class AppComponent {
     }
 
     this.service.sendUserMessage(dto).subscribe(
-      (result: string) => {
+      (result: ChatDto) => {
         this.loading = false;
-        this.messages.push({ sender: ChatSender.Chatbot, message: result });
+        this.messages.push({ sender: ChatSender.Chatbot, message: result.message });
+        this.scrollToBottom();
+      },
+      (error) => {
+        console.error(error);
+        this.loading = false;
+        this.messages.push({ sender: ChatSender.Chatbot, message: "Erro, favor tentar novamente mais tarde" });
         this.scrollToBottom();
       }
     );

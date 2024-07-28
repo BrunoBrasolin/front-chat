@@ -9,10 +9,8 @@ import { ChatDto } from './app.interface';
 export class AppService {
   constructor(private http: HttpClient) { }
 
-  public sendUserMessage(dto: ChatDto): Observable<string> {
-    const headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-    const response = this.http.post<string>(`https://api.gamidas.dev.br/chat/`, dto, { headers });
+  public sendUserMessage(dto: ChatDto): Observable<ChatDto> {
+    const response = this.http.post<ChatDto>(`https://api.gamidas.dev.br/chat/`, dto);
 
     return response;
   }
