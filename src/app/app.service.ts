@@ -1,8 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { APIResponse } from './app.interface';
-import { environment } from '../environment';
+import { ChatDto } from './app.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -10,21 +9,10 @@ import { environment } from '../environment';
 export class AppService {
   constructor(private http: HttpClient) { }
 
-  public sendUserMessage(message: string): Observable<APIResponse> {
+  public sendUserMessage(dto: ChatDto): Observable<string> {
     const headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const body = {
-      "contents": [
-        {
-          "parts": [
-            {
-              "text": message
-            }
-          ]
-        }
-      ]
-    };
 
-    const response = this.http.post<APIResponse>(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${environment.apiKey}`, body, { headers });
+    const response = this.http.post<string>(`https://api.gamidas.dev.br/chat/`, dto, { headers });
 
     return response;
   }

@@ -124,7 +124,10 @@
 					"options": {
 						"port": 4202
 					}
-				}
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy"
+        }
 			}
 		}
 	}

@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { ChatMessage } from './app.interface';
 import { AppService } from './app.service';
 import { CommonModule } from '@angular/common';
+import { ChatDto } from './app.interface';
 
 @Component({
   selector: 'app-root',
@@ -37,10 +38,15 @@ export class AppComponent {
     this.messages.push({ sender: ChatSender.User, message: userMessage });
     this.scrollToBottom();
 
-    this.service.sendUserMessage(userMessage).subscribe(
-      result => {
+    const dto: ChatDto = {
+      message: userMessage,
+      language: "portuguese"
+    }
+
+    this.service.sendUserMessage(dto).subscribe(
+      (result: string) => {
         this.loading = false;
-        this.messages.push({ sender: ChatSender.Chatbot, message: result.candidates[0].content.parts[0].text });
+        this.messages.push({ sender: ChatSender.Chatbot, message: result });
         this.scrollToBottom();
       }
     );
