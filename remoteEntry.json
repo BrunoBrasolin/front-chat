@@ -1,5 +1,5 @@
 {
-  "name": "front-chat",
+  "name": "",
   "shared": [
     {
       "packageName": "@angular/animations",
@@ -20,7 +20,7 @@
     {
       "packageName": "@angular/cdk",
       "outFileName": "_angular_cdk-18_1_1.js",
-      "requiredVersion": "^18.0.6",
+      "requiredVersion": "^18.0.5",
       "singleton": true,
       "strictVersion": true,
       "version": "18.1.1"
@@ -28,7 +28,7 @@
     {
       "packageName": "@angular/cdk/a11y",
       "outFileName": "_angular_cdk_a11y-18_1_1.js",
-      "requiredVersion": "^18.0.6",
+      "requiredVersion": "^18.0.5",
       "singleton": true,
       "strictVersion": true,
       "version": "18.1.1"
@@ -36,7 +36,7 @@
     {
       "packageName": "@angular/cdk/accordion",
       "outFileName": "_angular_cdk_accordion-18_1_1.js",
-      "requiredVersion": "^18.0.6",
+      "requiredVersion": "^18.0.5",
       "singleton": true,
       "strictVersion": true,
       "version": "18.1.1"
@@ -44,7 +44,7 @@
     {
       "packageName": "@angular/cdk/bidi",
       "outFileName": "_angular_cdk_bidi-18_1_1.js",
-      "requiredVersion": "^18.0.6",
+      "requiredVersion": "^18.0.5",
       "singleton": true,
       "strictVersion": true,
       "version": "18.1.1"
@@ -52,7 +52,7 @@
     {
       "packageName": "@angular/cdk/clipboard",
       "outFileName": "_angular_cdk_clipboard-18_1_1.js",
-      "requiredVersion": "^18.0.6",
+      "requiredVersion": "^18.0.5",
       "singleton": true,
       "strictVersion": true,
       "version": "18.1.1"
@@ -60,7 +60,7 @@
     {
       "packageName": "@angular/cdk/coercion",
       "outFileName": "_angular_cdk_coercion-18_1_1.js",
-      "requiredVersion": "^18.0.6",
+      "requiredVersion": "^18.0.5",
       "singleton": true,
       "strictVersion": true,
       "version": "18.1.1"
@@ -68,7 +68,7 @@
     {
       "packageName": "@angular/cdk/collections",
       "outFileName": "_angular_cdk_collections-18_1_1.js",
-      "requiredVersion": "^18.0.6",
+      "requiredVersion": "^18.0.5",
       "singleton": true,
       "strictVersion": true,
       "version": "18.1.1"
@@ -76,7 +76,7 @@
     {
       "packageName": "@angular/cdk/dialog",
       "outFileName": "_angular_cdk_dialog-18_1_1.js",
-      "requiredVersion": "^18.0.6",
+      "requiredVersion": "^18.0.5",
       "singleton": true,
       "strictVersion": true,
       "version": "18.1.1"
@@ -84,7 +84,7 @@
     {
       "packageName": "@angular/cdk/drag-drop",
       "outFileName": "_angular_cdk_drag_drop-18_1_1.js",
-      "requiredVersion": "^18.0.6",
+      "requiredVersion": "^18.0.5",
       "singleton": true,
       "strictVersion": true,
       "version": "18.1.1"
@@ -92,7 +92,7 @@
     {
       "packageName": "@angular/cdk/keycodes",
       "outFileName": "_angular_cdk_keycodes-18_1_1.js",
-      "requiredVersion": "^18.0.6",
+      "requiredVersion": "^18.0.5",
       "singleton": true,
       "strictVersion": true,
       "version": "18.1.1"
@@ -100,7 +100,7 @@
     {
       "packageName": "@angular/cdk/layout",
       "outFileName": "_angular_cdk_layout-18_1_1.js",
-      "requiredVersion": "^18.0.6",
+      "requiredVersion": "^18.0.5",
       "singleton": true,
       "strictVersion": true,
       "version": "18.1.1"
@@ -108,7 +108,7 @@
     {
       "packageName": "@angular/cdk/listbox",
       "outFileName": "_angular_cdk_listbox-18_1_1.js",
-      "requiredVersion": "^18.0.6",
+      "requiredVersion": "^18.0.5",
       "singleton": true,
       "strictVersion": true,
       "version": "18.1.1"
@@ -116,7 +116,7 @@
     {
       "packageName": "@angular/cdk/menu",
       "outFileName": "_angular_cdk_menu-18_1_1.js",
-      "requiredVersion": "^18.0.6",
+      "requiredVersion": "^18.0.5",
       "singleton": true,
       "strictVersion": true,
       "version": "18.1.1"
@@ -124,7 +124,7 @@
     {
       "packageName": "@angular/cdk/observers",
       "outFileName": "_angular_cdk_observers-18_1_1.js",
-      "requiredVersion": "^18.0.6",
+      "requiredVersion": "^18.0.5",
       "singleton": true,
       "strictVersion": true,
       "version": "18.1.1"
@@ -132,7 +132,7 @@
     {
       "packageName": "@angular/cdk/observers/private",
       "outFileName": "_angular_cdk_observers_private-18_1_1.js",
-      "requiredVersion": "^18.0.6",
+      "requiredVersion": "^18.0.5",
       "singleton": true,
       "strictVersion": true,
       "version": "18.1.1"
@@ -140,7 +140,7 @@
     {
       "packageName": "@angular/cdk/overlay",
       "outFileName": "_angular_cdk_overlay-18_1_1.js",
-      "requiredVersion": "^18.0.6",
+      "requiredVersion": "^18.0.5",
       "singleton": true,
       "strictVersion": true,
       "version": "18.1.1"
@@ -148,7 +148,7 @@
     {
       "packageName": "@angular/cdk/platform",
       "outFileName": "_angular_cdk_platform-18_1_1.js",
-      "requiredVersion": "^18.0.6",
+      "requiredVersion": "^18.0.5",
       "singleton": true,
       "strictVersion": true,
       "version": "18.1.1"
@@ -156,7 +156,7 @@
     {
       "packageName": "@angular/cdk/portal",
       "outFileName": "_angular_cdk_portal-18_1_1.js",
-      "requiredVersion": "^18.0.6",
+      "requiredVersion": "^18.0.5",
       "singleton": true,
       "strictVersion": true,
       "version": "18.1.1"
@@ -164,7 +164,7 @@
     {
       "packageName": "@angular/cdk/scrolling",
       "outFileName": "_angular_cdk_scrolling-18_1_1.js",
-      "requiredVersion": "^18.0.6",
+      "requiredVersion": "^18.0.5",
       "singleton": true,
       "strictVersion": true,
       "version": "18.1.1"
@@ -172,7 +172,7 @@
     {
       "packageName": "@angular/cdk/stepper",
       "outFileName": "_angular_cdk_stepper-18_1_1.js",
-      "requiredVersion": "^18.0.6",
+      "requiredVersion": "^18.0.5",
       "singleton": true,
       "strictVersion": true,
       "version": "18.1.1"
@@ -180,7 +180,7 @@
     {
       "packageName": "@angular/cdk/table",
       "outFileName": "_angular_cdk_table-18_1_1.js",
-      "requiredVersion": "^18.0.6",
+      "requiredVersion": "^18.0.5",
       "singleton": true,
       "strictVersion": true,
       "version": "18.1.1"
@@ -188,7 +188,7 @@
     {
       "packageName": "@angular/cdk/text-field",
       "outFileName": "_angular_cdk_text_field-18_1_1.js",
-      "requiredVersion": "^18.0.6",
+      "requiredVersion": "^18.0.5",
       "singleton": true,
       "strictVersion": true,
       "version": "18.1.1"
@@ -196,7 +196,7 @@
     {
       "packageName": "@angular/cdk/tree",
       "outFileName": "_angular_cdk_tree-18_1_1.js",
-      "requiredVersion": "^18.0.6",
+      "requiredVersion": "^18.0.5",
       "singleton": true,
       "strictVersion": true,
       "version": "18.1.1"
@@ -338,10 +338,5 @@
       "version": "2.6.3"
     }
   ],
-  "exposes": [
-    {
-      "key": "./Component",
-      "outFileName": "Component-JJI26BHE.js"
-    }
-  ]
+  "exposes": []
 }
