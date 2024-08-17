@@ -1,6 +1,6 @@
 <div class="chatbot-content">
   <div class="chatbot-header">
-    <span class="chatbot-title">Chat</span>
+    <span class="chatbot-title">dalme</span>
   </div>
 
   <div class="chatbot-body">
@@ -28,6 +28,9 @@
   </div>
 
   <form class="chatbot-footer" [formGroup]="chatForm" (ngSubmit)="handleMessageSent()">
+    <div class="microphone">
+      <button type="button" (click)="toggleRecording()">Start Recording</button>
+    </div>
     <input type="text" class="chatbot-input" formControlName="userInput" placeholder="Digite sua mensagem..." />
     <button type="submit" [disabled]="loading" class="chatbot-send">Enviar</button>
   </form>

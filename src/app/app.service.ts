@@ -7,11 +7,50 @@ import { ChatDto } from './app.interface';
   providedIn: 'root'
 })
 export class AppService {
+  private audioContext: AudioContext | null = null;
+  private mediaRecorder: MediaRecorder | null = null;
+  private audioChunks: Blob[] = [];
+
   constructor(private http: HttpClient) { }
 
   public sendUserMessage(dto: ChatDto): Observable<ChatDto> {
     const response = this.http.post<ChatDto>(`https://api.gamidas.dev.br/chat/`, dto);
 
     return response;
+  }
+
+  async startRecording() {
+    try {
+      this.audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      this.mediaRecorder = new MediaRecorder(stream);
+
+      this.mediaRecorder.ondataavailable = (event) => {
+        this.audioChunks.push(event.data);
+      };
+
+      this.mediaRecorder.start();
+    } catch (error) {
+      console.error('Error accessing the microphone: ', error);
+    }
+  }
+
+  stopRecording(): Blob | null {
+    if (this.mediaRecorder && this.audioContext) {
+      this.mediaRecorder.stop();
+
+      const audioBlob = new Blob(this.audioChunks, { type: 'audio/wav' });
+      this.audioChunks = [];
+
+      return audioBlob;
+    }
+    return null;
+  }
+
+  sendUserAudio(audioBlob: Blob) {
+    const formData = new FormData();
+    formData.append('audio', audioBlob, 'recording.wav');
+
+    return this.http.post<ChatDto>('http://localhost:8080/audio', formData);
   }
 }
