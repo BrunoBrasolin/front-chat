@@ -1,10 +1,11 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ChatSender } from './app.enum';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ChatMessage } from './app.interface';
+import { ChatMessage, LoadingInterface, TranscriptAudioDto } from './app.interface';
 import { AppService } from './app.service';
 import { CommonModule } from '@angular/common';
 import { ChatDto } from './app.interface';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -14,71 +15,125 @@ import { ChatDto } from './app.interface';
   imports: [ReactiveFormsModule, CommonModule]
 })
 export class AppComponent {
-  public loading: boolean | null = null;
+  public loading: LoadingInterface = {
+    owner: ChatSender.Chatbot,
+    loading: null
+  };
   private userInput = new FormControl('', [Validators.required]);
   public messages: ChatMessage[] = [];
   public chatForm: FormGroup = this.formBuilder.group({
     userInput: this.userInput
   });
-  isRecording = false;
+  public isRecording: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
     private service: AppService,
   ) { }
 
-  async toggleRecording() {
+  async toggleRecording(): Promise<void> {
     if (!this.isRecording) {
       this.isRecording = true;
 
-      await this.service.startRecording();
+      try {
+        await this.service.startRecording();
+      }
+      catch {
+        this.addMessage(ChatSender.Chatbot, 'Ocorreu um erro na gravação do seu áudio.');
+      }
 
     } else {
       this.isRecording = false;
 
       const audioBlob = this.service.stopRecording();
 
-      if (audioBlob)
-        this.service.sendUserAudio(audioBlob).subscribe((result: ChatDto) => {
+      if (!audioBlob) {
+        this.addMessage(ChatSender.Chatbot, 'Não entendi, poderia repetir?');
+        return;
+      }
 
-          this.loading = false;
-          this.messages.push({ sender: ChatSender.Chatbot, message: result.message });
-          this.scrollToBottom();
+      this.setUserLoading(true);
+
+      this.service.transcriptAudio(audioBlob)
+        .pipe(finalize(() => {
+          this.setUserLoading(false);
+        }))
+        .subscribe((result: TranscriptAudioDto) => {
+          if (!result.message) {
+            this.addMessage(ChatSender.User, "");
+            this.addMessage(ChatSender.Chatbot, 'Não entendi, poderia repetir?');
+            return;
+          }
+
+          this.addMessage(ChatSender.User, result.message);
+
+          this.sendUserMessage(result.message);
         });
     }
   }
 
   public handleMessageSent(): void {
     const userMessage = this.userInput.value;
+
     if (userMessage == null || userMessage == "") {
       alert("Favor informar uma mensagem.");
       return;
     }
-    this.loading = true;
-    this.userInput.setValue("");
 
-    this.messages.push({ sender: ChatSender.User, message: userMessage });
-    this.scrollToBottom();
-
-    const dto: ChatDto = {
-      message: userMessage,
-      language: "portuguese"
-    }
-
-    this.service.sendUserMessage(dto).subscribe(
-      (result: ChatDto) => {
-        this.loading = false;
-        this.messages.push({ sender: ChatSender.Chatbot, message: result.message });
-        this.scrollToBottom();
-      }
-    );
+    this.sendUserMessage(userMessage);
   }
 
-  private scrollToBottom(): void {
+  private sendUserMessage(message: string) {
+    this.setBotLoading(true);
+
+    try {
+      this.userInput.setValue("");
+
+      this.addMessage(ChatSender.User, message);
+
+      const dto: ChatDto = {
+        message: message,
+        language: "portuguese"
+      }
+
+      this.service.sendUserMessage(dto)
+        .pipe(finalize(() => {
+          this.setBotLoading(false);
+        }))
+        .subscribe(
+          (result: ChatDto) => {
+            this.setBotLoading(false);
+            this.addMessage(ChatSender.Chatbot, result.message);
+          }
+        );
+    }
+    catch {
+      this.addMessage(ChatSender.Chatbot, "Ocorreu um erro, poderia tentar novamente?");
+      this.setBotLoading(false);
+    }
+  }
+
+  private setBotLoading(loading: boolean | null): void {
+    this.loading = {
+      owner: ChatSender.Chatbot,
+      loading: loading
+    }
+  }
+
+  private setUserLoading(loading: boolean | null): void {
+    this.loading = {
+      owner: ChatSender.User,
+      loading: loading
+    }
+  }
+
+  private addMessage(sender: ChatSender, message: string): void {
+    this.messages.push({ sender, message });
     setTimeout(() => {
       document.querySelector("#chatEnd")?.scrollIntoView({
         behavior: 'smooth'
       });
     }, 1);
+
   }
 }

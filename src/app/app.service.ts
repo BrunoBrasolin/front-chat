@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ChatDto } from './app.interface';
+import { ChatDto, TranscriptAudioDto } from './app.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -14,25 +14,21 @@ export class AppService {
   constructor(private http: HttpClient) { }
 
   public sendUserMessage(dto: ChatDto): Observable<ChatDto> {
-    const response = this.http.post<ChatDto>(`https://api.gamidas.dev.br/chat/message`, dto);
+    const response = this.http.post<ChatDto>(`http://localhost:8080/message`, dto);
 
     return response;
   }
 
   async startRecording() {
-    try {
-      this.audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      this.mediaRecorder = new MediaRecorder(stream);
+    this.audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    this.mediaRecorder = new MediaRecorder(stream);
 
-      this.mediaRecorder.ondataavailable = (event) => {
-        this.audioChunks.push(event.data);
-      };
+    this.mediaRecorder.ondataavailable = (event) => {
+      this.audioChunks.push(event.data);
+    };
 
-      this.mediaRecorder.start();
-    } catch (error) {
-      console.error('Error accessing the microphone: ', error);
-    }
+    this.mediaRecorder.start();
   }
 
   stopRecording(): Blob | null {
@@ -44,13 +40,14 @@ export class AppService {
 
       return audioBlob;
     }
+
     return null;
   }
 
-  sendUserAudio(audioBlob: Blob) {
+  transcriptAudio(audioBlob: Blob) {
     const formData = new FormData();
     formData.append('audio', audioBlob, 'recording.wav');
 
-    return this.http.post<ChatDto>('https://api.gamidas.dev.br/chat/audio', formData);
+    return this.http.post<TranscriptAudioDto>('http://localhost:80s80/transcript_audio', formData);
   }
 }

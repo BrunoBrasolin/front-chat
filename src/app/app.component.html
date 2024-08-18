@@ -12,7 +12,7 @@
       </div>
     </div>
 
-    <div *ngIf="loading" class="message-content chatbot">
+    <div *ngIf="loading.loading" class="message-content {{loading.owner}}">
       <div class="message">
         <span class="text">
           <div class="loading-dots">
@@ -28,10 +28,10 @@
   </div>
 
   <form class="chatbot-footer" [formGroup]="chatForm" (ngSubmit)="handleMessageSent()">
-    <button type="button" class="chatbot-microphone {{isRecording ? 'recording' : ''}}" (click)="toggleRecording()">
+    <button type="button" [disabled]="loading.loading" class="chatbot-microphone {{isRecording ? 'recording' : ''}}" (click)="toggleRecording()">
       <img src="assets/icons/microphone.png" alt="Microphone">
     </button>
     <input type="text" class="chatbot-input" formControlName="userInput" placeholder="Digite sua mensagem..." />
-    <button type="submit" [disabled]="loading" class="chatbot-send">Enviar</button>
+    <button type="submit" [disabled]="loading.loading" class="chatbot-send">Enviar</button>
   </form>
 </div>
