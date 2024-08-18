@@ -45,7 +45,7 @@ export class AppComponent {
     } else {
       this.isRecording = false;
 
-      const audioBlob = this.service.stopRecording();
+      const audioBlob = await this.service.stopRecording();
 
       if (!audioBlob) {
         this.addMessage(ChatSender.Chatbot, 'Não entendi, poderia repetir?');
@@ -59,13 +59,13 @@ export class AppComponent {
           this.setUserLoading(false);
         }))
         .subscribe((result: TranscriptAudioDto) => {
+          console.log(result);
+
           if (!result.message) {
             this.addMessage(ChatSender.User, "");
             this.addMessage(ChatSender.Chatbot, 'Não entendi, poderia repetir?');
             return;
           }
-
-          this.addMessage(ChatSender.User, result.message);
 
           this.sendUserMessage(result.message);
         });

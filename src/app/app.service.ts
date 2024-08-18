@@ -31,23 +31,28 @@ export class AppService {
     this.mediaRecorder.start();
   }
 
-  stopRecording(): Blob | null {
-    if (this.mediaRecorder && this.audioContext) {
-      this.mediaRecorder.stop();
+  stopRecording(): Promise<Blob | null> {
+    return new Promise<Blob | null>((resolve) => {
+      if (this.mediaRecorder && this.audioContext) {
+        this.mediaRecorder!.onstop = () => {
+          const audioBlob = new Blob(this.audioChunks, { type: 'audio/wav' });
+          this.audioChunks = [];
 
-      const audioBlob = new Blob(this.audioChunks, { type: 'audio/wav' });
-      this.audioChunks = [];
+          this.audioContext?.close();
+          this.audioContext = null;
 
-      return audioBlob;
-    }
+          resolve(audioBlob);
+        };
 
-    return null;
+        this.mediaRecorder.stop();
+      }
+    });
   }
 
   transcriptAudio(audioBlob: Blob) {
     const formData = new FormData();
     formData.append('audio', audioBlob, 'recording.wav');
 
-    return this.http.post<TranscriptAudioDto>('http://localhost:80s80/transcript_audio', formData);
+    return this.http.post<TranscriptAudioDto>('http://localhost:8080/transcript_audio', formData);
   }
 }
