@@ -28,9 +28,9 @@
   </div>
 
   <form class="chatbot-footer" [formGroup]="chatForm" (ngSubmit)="handleMessageSent()">
-    <div class="microphone">
-      <button type="button" (click)="toggleRecording()">Start Recording</button>
-    </div>
+    <button type="button" class="chatbot-microphone {{isRecording ? 'recording' : ''}}" (click)="toggleRecording()">
+      <img src="assets/icons/microphone.png" alt="Microphone">
+    </button>
     <input type="text" class="chatbot-input" formControlName="userInput" placeholder="Digite sua mensagem..." />
     <button type="submit" [disabled]="loading" class="chatbot-send">Enviar</button>
   </form>

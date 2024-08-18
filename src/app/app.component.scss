@@ -49,6 +49,25 @@ $chatPadding: 1rem;
   }
 }
 
+@keyframes pulse {
+  0% {
+    background-color: #fff;
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba($primaryColor, 0.25);
+  }
+
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba($primaryColor, .25);
+  }
+
+  100% {
+    background-color: #fff;
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba($primaryColor, 0.25);
+  }
+}
+
 .chatbot-content {
   height: 100%;
   width: 100%;
@@ -139,9 +158,31 @@ $chatPadding: 1rem;
     padding: $chatPadding;
     border-top: 1px solid $gray;
 
+    .chatbot-microphone {
+      border: none;
+      background-color: $primaryColor;
+      border: 2px solid $primaryColor;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: 0.25s;
+
+      img {
+        height: 2rem;
+        width: auto;
+      }
+
+      &.recording {
+        animation: pulse 3s infinite;
+      }
+
+      &:hover {
+        box-shadow: 0 0 20px rgba($primaryColor, .25);
+      }
+    }
+
     .chatbot-input {
       flex: 1;
-      margin-right: 10px;
+      margin: 0 10px;
       padding: 10px;
       border: 1px solid $gray;
       border-radius: 5px;
