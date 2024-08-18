@@ -14,7 +14,7 @@ export class AppService {
   constructor(private http: HttpClient) { }
 
   public sendUserMessage(dto: ChatDto): Observable<ChatDto> {
-    const response = this.http.post<ChatDto>(`http://localhost:8080/message`, dto);
+    const response = this.http.post<ChatDto>(`https://api.gamidas.dev.br/chat/message`, dto);
 
     return response;
   }
@@ -53,6 +53,6 @@ export class AppService {
     const formData = new FormData();
     formData.append('audio', audioBlob, 'recording.wav');
 
-    return this.http.post<TranscriptAudioDto>('http://localhost:8080/transcript_audio', formData);
+    return this.http.post<TranscriptAudioDto>('https://api.gamidas.dev.br/chat/transcript_audio', formData);
   }
 }
