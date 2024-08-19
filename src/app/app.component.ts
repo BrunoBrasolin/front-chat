@@ -59,8 +59,6 @@ export class AppComponent {
           this.setUserLoading(false);
         }))
         .subscribe((result: TranscriptAudioDto) => {
-          console.log(result);
-
           if (!result.message) {
             this.addMessage(ChatSender.User, "");
             this.addMessage(ChatSender.Chatbot, 'Não entendi, poderia repetir?');
